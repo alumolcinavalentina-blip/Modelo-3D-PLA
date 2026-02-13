@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Visor STL</title>
+<style>body{margin:0}</style>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158/examples/js/loaders/STLLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+<script>
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer();
+renderer.setSize(innerWidth,innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const controls=new THREE.OrbitControls(camera,renderer.domElement);
+camera.position.z=100;
+
+const loader=new THREE.STLLoader();
+loader.load('modelo.stl',geometry=>{
+  const material=new THREE.MeshNormalMaterial();
+  const mesh=new THREE.Mesh(geometry,material);
+  scene.add(mesh);
+});
+
+function animate(){
+ requestAnimationFrame(animate);
+ renderer.render(scene,camera);
+}
+animate();
+</script>
+</body>
+</html>
